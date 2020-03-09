@@ -32,6 +32,7 @@ function Color-Console {
 	$Host.UI.RawUI.WindowTitle = "NoelXPShell $hostversion ($hosttime)"
 }
 Color-Console
+cls
 
 function rainbow {
 [enum]::GetValues([System.ConsoleColor]) | Foreach-Object {Write-Host $_ -ForegroundColor $_}
@@ -74,7 +75,6 @@ function Print-Welcome{
 	start-sleep -s 1.5
 	Write-Host    "                                         Knock, Knock, Neo."
 }
-cls
 print-Welcome
 
 #Symbols for fucking around
@@ -98,9 +98,8 @@ $symbols = [PSCustomObject] @{
     CHECKMARK = ([char]8730)
 }
 
-$Env:Path += "C:\Program Files (x86)\Notepad++;C:\Users\Admin\eclipse\java-2019-09\eclipse"
-set-alias eclipse Eclipse.exe
-set-alias np++ notepad++.exe
+$Env:Path += "C:\Program Files (x86)\Notepad++;"
+set-alias np++ NotePad++.exe
 set-location C:\
 $SpadeV = $($symbols.SPADE)
 
@@ -135,3 +134,9 @@ function prompt
 	" "
 } 
 
+
+# Chocolatey profile
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
+}
