@@ -1,21 +1,4 @@
-function List-dockerConstainers {
-					docker ps
-		}
-Set-Alias dkps List-dockerConstainers
 
-function Get-DockerHelp {
- docker --help | Out-Host -Paging
- }
- Set-Alias dkhelp Get-DockerHelp
- 
- function Get-ContainerIPAddress {  
-    param (
-        [string] $id
-    )
-    & docker inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' $id
-}
-Set-Alias dip  Get-ContainerIPAddress  
-Import-Module posh-git
 
 #Initial Colour of console
 function Color-Console {
@@ -23,15 +6,16 @@ function Color-Console {
 	$console.backgroundcolor = "black"
 	$console.foregroundcolor = "Green"
 	$colors = $host.privatedata
-	$colors.errorbackgroundcolor = "darkGray"
-	$colors.errorforegroundColor = "black"
-	$colors.warningbackgroundcolor = "darkGray"
-	$colors.warningforegroundcolor = "Black"
+	#$colors.errorbackgroundcolor = "darkGray"
+	#$colors.errorforegroundColor = "black"
+	#$colors.warningbackgroundcolor = "darkGray"
+	#$colors.warningforegroundcolor = "Black"
 	$hosttime = (Get-ChildItem -Path $pshome\PowerShell.exe).CreationTime
 	$hostversion="$($Host.Version.Major)`.$($Host.Version.Minor)"
 	$Host.UI.RawUI.WindowTitle = "NoelXPShell $hostversion ($hosttime)"
 }
 Color-Console
+cls
 
 function rainbow {
 [enum]::GetValues([System.ConsoleColor]) | Foreach-Object {Write-Host $_ -ForegroundColor $_}
@@ -97,9 +81,9 @@ $symbols = [PSCustomObject] @{
     CHECKMARK = ([char]8730)
 }
 
-$Env:Path += ";C:\Program Files\Notepad++;C:\Users\Admin\eclipse\java-2019-09\eclipse"
+$Env:Path += "C:\Program Files (x86)\Notepad++;"
 set-alias eclipse Eclipse.exe
-set-alias np++ NotePad++.exe
+set-alias np++ notepad++.exe
 set-location C:\
 $SpadeV = $($symbols.SPADE)
 
@@ -134,9 +118,3 @@ function prompt
 	" "
 } 
 
-
-# Chocolatey profile
-$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-if (Test-Path($ChocolateyProfile)) {
-  Import-Module "$ChocolateyProfile"
-}
