@@ -6,12 +6,10 @@ function Color-Console {
 	$console.backgroundcolor = "black"
 	$console.foregroundcolor = "Green"
 	$colors = $host.privatedata
-<<<<<<< HEAD
 	#$colors.errorbackgroundcolor = "darkGray"
 	#$colors.errorforegroundColor = "black"
 	#$colors.warningbackgroundcolor = "darkGray"
 	#$colors.warningforegroundcolor = "Black"
->>>>>>> origin/posh7
 	$hosttime = (Get-ChildItem -Path $pshome\PowerShell.exe).CreationTime
 	$hostversion="$($Host.Version.Major)`.$($Host.Version.Minor)"
 	$Host.UI.RawUI.WindowTitle = "NoelXPShell $hostversion ($hosttime)"
