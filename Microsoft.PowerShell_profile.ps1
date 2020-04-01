@@ -82,12 +82,7 @@ $symbols = [PSCustomObject] @{
 }
 
 $Env:Path += "C:\Program Files (x86)\Notepad++;"
-<<<<<<< HEAD
-set-alias np++ NotePad++.exe
-=======
-set-alias eclipse Eclipse.exe
 set-alias np++ notepad++.exe
->>>>>>> origin/posh7
 set-location C:\
 $SpadeV = $($symbols.SPADE)
 
