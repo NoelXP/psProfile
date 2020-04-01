@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function List-dockerConstainers {
 					docker ps
 		}
@@ -16,6 +17,9 @@ function Get-DockerHelp {
 }
 Set-Alias dip  Get-ContainerIPAddress  
 Import-Module posh-git
+=======
+
+>>>>>>> origin/posh7
 
 #Initial Colour of console
 function Color-Console {
@@ -23,10 +27,12 @@ function Color-Console {
 	$console.backgroundcolor = "black"
 	$console.foregroundcolor = "Green"
 	$colors = $host.privatedata
-	$colors.errorbackgroundcolor = "darkGray"
-	$colors.errorforegroundColor = "black"
-	$colors.warningbackgroundcolor = "darkGray"
-	$colors.warningforegroundcolor = "Black"
+<<<<<<< HEAD
+	#$colors.errorbackgroundcolor = "darkGray"
+	#$colors.errorforegroundColor = "black"
+	#$colors.warningbackgroundcolor = "darkGray"
+	#$colors.warningforegroundcolor = "Black"
+>>>>>>> origin/posh7
 	$hosttime = (Get-ChildItem -Path $pshome\PowerShell.exe).CreationTime
 	$hostversion="$($Host.Version.Major)`.$($Host.Version.Minor)"
 	$Host.UI.RawUI.WindowTitle = "NoelXPShell $hostversion ($hosttime)"
@@ -99,7 +105,12 @@ $symbols = [PSCustomObject] @{
 }
 
 $Env:Path += "C:\Program Files (x86)\Notepad++;"
+<<<<<<< HEAD
 set-alias np++ NotePad++.exe
+=======
+set-alias eclipse Eclipse.exe
+set-alias np++ notepad++.exe
+>>>>>>> origin/posh7
 set-location C:\
 $SpadeV = $($symbols.SPADE)
 
@@ -134,9 +145,12 @@ function prompt
 	" "
 } 
 
+<<<<<<< HEAD
 
 # Chocolatey profile
 $ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 if (Test-Path($ChocolateyProfile)) {
   Import-Module "$ChocolateyProfile"
 }
+=======
+>>>>>>> origin/posh7
