@@ -1,25 +1,4 @@
-<<<<<<< HEAD
-function List-dockerConstainers {
-					docker ps
-		}
-Set-Alias dkps List-dockerConstainers
 
-function Get-DockerHelp {
- docker --help | Out-Host -Paging
- }
- Set-Alias dkhelp Get-DockerHelp
- 
- function Get-ContainerIPAddress {  
-    param (
-        [string] $id
-    )
-    & docker inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' $id
-}
-Set-Alias dip  Get-ContainerIPAddress  
-Import-Module posh-git
-=======
-
->>>>>>> origin/posh7
 
 #Initial Colour of console
 function Color-Console {
@@ -145,12 +124,4 @@ function prompt
 	" "
 } 
 
-<<<<<<< HEAD
 
-# Chocolatey profile
-$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-if (Test-Path($ChocolateyProfile)) {
-  Import-Module "$ChocolateyProfile"
-}
-=======
->>>>>>> origin/posh7
