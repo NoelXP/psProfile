@@ -81,7 +81,7 @@ $symbols = [PSCustomObject] @{
     CHECKMARK = ([char]8730)
 }
 
-$Env:Path += "C:\Program Files (x86)\Notepad++;"
+$Env:Path += "C:\Program Files\Notepad++;"
 set-alias np++ notepad++.exe
 set-location C:\
 $SpadeV = $($symbols.SPADE)
