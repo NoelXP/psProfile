@@ -1,4 +1,8 @@
+
 $Workspace = "C:\Users\NoelX\Desktop\Workspace\"
+
+#This is a test edit
+5e2108f34f1b2ae5ad6e3a59c4af2ebb8dd1ad89
 
 #Initial Colour of console
 function Color-Console {
