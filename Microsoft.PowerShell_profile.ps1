@@ -1,4 +1,4 @@
-
+$Workspace = "C:\Users\NoelX\Desktop\Workspace\"
 
 #Initial Colour of console
 function Color-Console {
@@ -81,7 +81,7 @@ $symbols = [PSCustomObject] @{
     CHECKMARK = ([char]8730)
 }
 
-$Env:Path += "C:\Program Files\Notepad++;"
+$Env:Path += ";C:\Program Files (x86)\Notepad++;"
 set-alias np++ notepad++.exe
 set-location C:\
 $SpadeV = $($symbols.SPADE)
