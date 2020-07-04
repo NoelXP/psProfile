@@ -1,6 +1,4 @@
-$Env:AWS_ACCESS_KEY_ID = "AKIASYADNUG56S2543HT"
-$Env:AWS_SECRET_ACCESS_KEY = "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"
-$Env:AWS_DEFAULT_REGION = "us-east-1"
+
 
 #Initial Colour of console
 function Color-Console {
@@ -94,7 +92,7 @@ $symbols = [PSCustomObject] @{
 
 
 ####Path Addistion####
-$Env:Path += ";C:\Program Files\Notepad++;"
+$Env:Path += ";C:\Program Files\Notepad++;C:\Program Files\Git"
 
 ####Aliases#####
 set-alias np++ notepad++.exe
