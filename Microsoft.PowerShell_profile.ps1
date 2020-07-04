@@ -96,6 +96,7 @@ $Env:Path += ";C:\Program Files\Notepad++;C:\Program Files\Git"
 
 ####Aliases#####
 set-alias np++ notepad++.exe
+set-alias gitB git-bash.exe
 set-location ~\Desktop\Workspace || set-location C:\
 $SpadeV = $($symbols.SPADE)
 
