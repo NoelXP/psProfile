@@ -1,8 +1,6 @@
-
-$Workspace = "C:\Users\NoelX\Desktop\Workspace\"
-
-#This is a test edit
-5e2108f34f1b2ae5ad6e3a59c4af2ebb8dd1ad89
+$Env:AWS_ACCESS_KEY_ID = "AKIASYADNUG56S2543HT"
+$Env:AWS_SECRET_ACCESS_KEY = "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"
+$Env:AWS_DEFAULT_REGION = "us-east-1"
 
 #Initial Colour of console
 function Color-Console {
@@ -21,6 +19,15 @@ function Color-Console {
 Color-Console
 cls
 
+#AWS API call to provide Tags and their descriptions of a given AWSSys_ID
+Function getTags ($AWSTag) {
+
+	aws ec2 describe-tags `
+	| ConvertFrom-Json `
+	| Select -expand Tags `
+	| Where-Object -Property ResourceId -eq $AWSTag `
+	| select @{N='Tag'; E='Key'},ResourceType,Value
+}
 function rainbow {
 [enum]::GetValues([System.ConsoleColor]) | Foreach-Object {Write-Host $_ -ForegroundColor $_}
 }
@@ -85,9 +92,13 @@ $symbols = [PSCustomObject] @{
     CHECKMARK = ([char]8730)
 }
 
-$Env:Path += ";C:\Program Files (x86)\Notepad++;"
+
+####Path Addistion####
+$Env:Path += ";C:\Program Files\Notepad++;"
+
+####Aliases#####
 set-alias np++ notepad++.exe
-set-location C:\
+set-location ~\Desktop\Workspace || set-location C:\
 $SpadeV = $($symbols.SPADE)
 
 
