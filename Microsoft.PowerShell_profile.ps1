@@ -1,21 +1,4 @@
-function List-dockerConstainers {
-					docker ps
-		}
-Set-Alias dkps List-dockerConstainers
 
-function Get-DockerHelp {
- docker --help | Out-Host -Paging
- }
- Set-Alias dkhelp Get-DockerHelp
- 
- function Get-ContainerIPAddress {  
-    param (
-        [string] $id
-    )
-    & docker inspect --format '{{ .NetworkSettings.Networks.nat.IPAddress }}' $id
-}
-Set-Alias dip  Get-ContainerIPAddress  
-Import-Module posh-git
 
 #Initial Colour of console
 function Color-Console {
@@ -23,10 +6,10 @@ function Color-Console {
 	$console.backgroundcolor = "black"
 	$console.foregroundcolor = "Green"
 	$colors = $host.privatedata
-	$colors.errorbackgroundcolor = "darkGray"
-	$colors.errorforegroundColor = "black"
-	$colors.warningbackgroundcolor = "darkGray"
-	$colors.warningforegroundcolor = "Black"
+	#$colors.errorbackgroundcolor = "darkGray"
+	#$colors.errorforegroundColor = "black"
+	#$colors.warningbackgroundcolor = "darkGray"
+	#$colors.warningforegroundcolor = "Black"
 	$hosttime = (Get-ChildItem -Path $pshome\PowerShell.exe).CreationTime
 	$hostversion="$($Host.Version.Major)`.$($Host.Version.Minor)"
 	$Host.UI.RawUI.WindowTitle = "NoelXPShell $hostversion ($hosttime)"
@@ -34,6 +17,15 @@ function Color-Console {
 Color-Console
 cls
 
+#AWS API call to provide Tags and their descriptions of a given AWSSys_ID
+Function getTags ($AWSTag) {
+
+	aws ec2 describe-tags `
+	| ConvertFrom-Json `
+	| Select -expand Tags `
+	| Where-Object -Property ResourceId -eq $AWSTag `
+	| select @{N='Tag'; E='Key'},ResourceType,Value
+}
 function rainbow {
 [enum]::GetValues([System.ConsoleColor]) | Foreach-Object {Write-Host $_ -ForegroundColor $_}
 }
@@ -76,7 +68,6 @@ function Print-Welcome{
 	Write-Host    "                                         Knock, Knock, Neo."
 }
 print-Welcome
-$host.ui.rawui.backgroundcolor = "black"
 
 #Symbols for fucking around
 $symbols = [PSCustomObject] @{
@@ -99,10 +90,15 @@ $symbols = [PSCustomObject] @{
     CHECKMARK = ([char]8730)
 }
 
-$Env:Path += "C:\Program Files (x86)\Notepad++;"
-set-alias eclipse Eclipse.exe
+
+####Path Addition####
+$Env:Path += "C:\Program Files\Notepad++;C:\Program Files (x86)\Notepad++;C:\Program Files\Git;"
+
+####Aliases#####
 set-alias np++ notepad++.exe
-set-location C:\
+set-alias gitB git-bash.exe
+set-alias AmongUs "among us.exe"
+set-location ~\Desktop\Workspace || set-location C:\
 $SpadeV = $($symbols.SPADE)
 
 
@@ -135,4 +131,12 @@ function prompt
 	(write-host -foregroundcolor darkgreen -nonewline ">") +
 	" "
 } 
+
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
+}
+
+
+
 
