@@ -17,15 +17,6 @@ function Color-Console {
 Color-Console
 cls
 
-#AWS API call to provide Tags and their descriptions of a given AWSSys_ID
-Function getTags ($AWSTag) {
-
-	aws ec2 describe-tags `
-	| ConvertFrom-Json `
-	| Select -expand Tags `
-	| Where-Object -Property ResourceId -eq $AWSTag `
-	| select @{N='Tag'; E='Key'},ResourceType,Value
-}
 function rainbow {
 [enum]::GetValues([System.ConsoleColor]) | Foreach-Object {Write-Host $_ -ForegroundColor $_}
 }
@@ -97,7 +88,6 @@ $Env:Path += "C:\Program Files\Notepad++;C:\Program Files (x86)\Notepad++;C:\Pro
 ####Aliases#####
 set-alias np++ notepad++.exe
 set-alias gitB git-bash.exe
-set-alias AmongUs "among us.exe"
 set-location ~\Desktop\Workspace || set-location C:\
 $SpadeV = $($symbols.SPADE)
 
@@ -131,12 +121,6 @@ function prompt
 	(write-host -foregroundcolor darkgreen -nonewline ">") +
 	" "
 } 
-
-$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-if (Test-Path($ChocolateyProfile)) {
-  Import-Module "$ChocolateyProfile"
-}
-
 
 
 
