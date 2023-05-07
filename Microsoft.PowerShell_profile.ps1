@@ -1,4 +1,7 @@
 
+#Make powershell utf-8 aware?
+$OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding =
+                    New-Object System.Text.UTF8Encoding
 
 #Initial Colour of console
 function Color-Console {
@@ -88,7 +91,12 @@ $Env:Path += "C:\Program Files\Notepad++;C:\Program Files (x86)\Notepad++;C:\Pro
 ####Aliases#####
 set-alias np++ notepad++.exe
 set-alias gitB git-bash.exe
-set-location ~\Desktop\Workspace || set-location C:\
+set-alias k kubectl
+
+Function workspaceFUNCT {Set-Location -Path ~\Desktop\workspace}
+Set-Alias -Name workspace -Value workspaceFUNCT
+
+set-location ~\Desktop\Workspace
 $SpadeV = $($symbols.SPADE)
 
 
@@ -121,6 +129,3 @@ function prompt
 	(write-host -foregroundcolor darkgreen -nonewline ">") +
 	" "
 } 
-
-
-
