@@ -128,4 +128,6 @@ function prompt
 	(write-host -foregroundcolor white -nonewline "$SpadeV") +
 	(write-host -foregroundcolor darkgreen -nonewline ">") +
 	" "
-} 
+}
+
+kubectl completion powershell | Out-String | Invoke-Expression 
