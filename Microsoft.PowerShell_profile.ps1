@@ -1,4 +1,10 @@
-
+function Check-WorkspaceDirectory {
+	$workspacePath = Join-Path -Path $HOME -ChildPath "Desktop\workspace"
+	if (-not (Test-Path -Path $workspacePath -PathType Container)) {
+		New-Item -Path $workspacePath -ItemType Directory | Out-Null
+	}
+}
+Check-WorkspaceDirectory
 #Make powershell utf-8 aware?
 $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding =
                     New-Object System.Text.UTF8Encoding
@@ -91,7 +97,11 @@ $Env:Path += "C:\Program Files\Notepad++;C:\Program Files (x86)\Notepad++;C:\Pro
 ####Aliases#####
 set-alias np++ notepad++.exe
 set-alias gitB git-bash.exe
-set-alias k kubectl
+
+if (Get-Command kubectl -ErrorAction SilentlyContinue) {
+	Set-Alias -Name k -Value kubectl
+	kubectl completion powershell | Out-String | Invoke-Expression 
+}
 
 Function workspaceFUNCT {Set-Location -Path ~\Desktop\workspace}
 Set-Alias -Name workspace -Value workspaceFUNCT
@@ -130,4 +140,3 @@ function prompt
 	" "
 }
 
-kubectl completion powershell | Out-String | Invoke-Expression 
