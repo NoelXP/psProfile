@@ -1,3 +1,12 @@
+# Make my workspace
+# Path to the workspace folder
+$workspaceFolder = "$env:USERPROFILE\Desktop\workspace"
+
+# Check if the workspace folder exists
+if (-not (Test-Path -Path $workspaceFolder -PathType Container)) {
+    # If it doesn't exist, create it
+    New-Item -Path $workspaceFolder -ItemType Directory
+}
 
 #Make powershell utf-8 aware?
 $OutputEncoding = [console]::InputEncoding = [console]::OutputEncoding =
@@ -93,19 +102,35 @@ set-alias np++ notepad++.exe
 set-alias gitB git-bash.exe
 set-alias k kubectl
 
+####Docker functions####
+function Get-DockerPorts {
+    docker ps --format "table {{.Names}}\t{{.Ports}}"
+}
+
+set-alias dop Get-DockerPorts
+function Get-DockerNetworks{
+	docker ps --format "table {{.Names}}\t{{.Networks}}"
+}
+
+set-alias don Get-DockerNetworks
+function Get-DockerExtended{
+	docker ps --format "table {{.Names}}\t{{.Image}}\t{{.ID}}\t{{.Ports}}"
+}
+
+set-alias doe Get-DockerExtended
 Function workspaceFUNCT {Set-Location -Path ~\Desktop\workspace}
 Set-Alias -Name workspace -Value workspaceFUNCT
 
-set-location ~\Desktop\Workspace
+set-location ~\Desktop\workspace
 $SpadeV = $($symbols.SPADE)
-
+$workspace = "~\Desktop\Workspace\"
 
 #Creates logs for command history
 $PSLogPath = ("{0}{1}\Documents\WindowsPowerShell\log\{2:yyyyMMdd}-{3}.log" -f $env:HOMEDRIVE, $env:HOMEPATH,  (Get-Date), $PID)
 <# Add-Content -Value "# $(Get-Date) $env:username $env:computername" -Path $PSLogPath
 Add-Content -Value "# $(Get-Location)" -Path $PSLogPath #>
 
-function Profile {np++ $profile}
+function Profile {code $profile}
 
 
 function prompt
@@ -128,6 +153,21 @@ function prompt
 	(write-host -foregroundcolor white -nonewline "$SpadeV") +
 	(write-host -foregroundcolor darkgreen -nonewline ">") +
 	" "
+} 
+
+kubectl completion powershell | Out-String | Invoke-Expression
+
+Function kcdf {kubectl config set-context $(kubectl config current-context) --namespace}
+set-alias kcd kcdf
+$env:KUBE_EDITOR='notepad++.exe'
+# Import the Chocolatey Profile that contains the necessary code to enable
+# tab-completions to function for `choco`.
+# Be aware that if you are missing these lines from your profile, tab completion
+# for `choco` will not function.
+# See https://ch0.co/tab-completion for details.
+$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+if (Test-Path($ChocolateyProfile)) {
+  Import-Module "$ChocolateyProfile"
 }
 
-kubectl completion powershell | Out-String | Invoke-Expression 
+oh-my-posh init pwsh --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/atomic.omp.json' | Invoke-Expression
